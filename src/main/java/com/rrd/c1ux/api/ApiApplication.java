@@ -7,6 +7,7 @@
  *  Date        Modified By     DTS#                        Description
  *  --------    -----------     -----------------------     --------------------------------
  *  11/29/2023  C Porter        CAP-45570                   Enable Jasypt for spring configurations   
+ *  20/07/2024                  CAP-TEST                    Only For Testing Purpose Rakesh Added Here
  */
 
 package com.rrd.c1ux.api;
@@ -21,7 +22,7 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 @EnableEncryptableProperties
 @ImportResource("classpath:beans.xml")
 public class ApiApplication {
-
+    //CAP-TEST
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
