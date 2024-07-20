@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+    ">
+
+    <!-- <cache:annotation-driven /> -->
+
+    <!-- the service that you wish to make cacheable -->
+    <!-- <bean id="sessionReaderService" 
+        class="com.rrd.c1ux.api.services.session.SessionReaderImpl"/> -->
+
+    <!-- <bean id="cacheManager" 
+        class="org.springframework.cache.support.SimpleCacheManager"> 
+        <property name="caches"> 
+            <set> 
+                <bean 
+                    class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" 
+                    name="sessions"/> 
+            </set> 
+        </property> 
+    </bean> -->
+
+    <!-- define caching behavior -->
+    <!-- <cache:advice id="cachingBehavior" cache-manager="cacheManager">
+        <cache:caching cache="sessions">
+            <cache:cacheable method="getSession" key="#userContext"/>
+        </cache:caching>
+    </cache:advice> -->
+
+    <bean id="siteAndLoginProcessor" 
+        class="com.wallace.atwinxs.framework.dao.LoginProcessDAO"/>
+
+</beans>

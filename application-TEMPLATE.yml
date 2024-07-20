@@ -1,0 +1,49 @@
+#--------------------------------------------------------------------------------------------
+#
+# Add configuration overrides in this file, for values that change for each environment.
+# The value must be a token.
+#
+# IF THIS FILE IS CHANGED, THE RELEASE PIPELINE MUST BE UPDATED.
+#
+#--------------------------------------------------------------------------------------------
+server:
+  ssl:
+    key-store: #{{server.ssl.key-store}}#
+    key-store-password: #{{server.ssl.key-store-password}}#
+    key-alias: #{{server.ssl.key-alias}}#
+auth0:
+  audience: #{{auth0.audience}}#
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          pingfed:
+            entity-id: #{{spring.security.saml2.relyingparty.registration.pingfed.entity-id}}#
+            acs:
+              location: #{{spring.security.saml2.relyingparty.registration.pingfed.acs.location}}#
+            assertingparty:
+              entity-id: #{{spring.security.saml2.relyingparty.registration.pingfed.assertingparty.entity-id}}#
+              singlesignon:
+                url: #{{spring.security.saml2.relyingparty.registration.pingfed.assertingparty.singlesignon.url}}#
+connectOneApi:
+  cors:
+    allowed-origins: #{{connectOneApi.cors.allowed-origins}}# 
+  db2Jndi:
+    url: #{{connectOneApi.db2Jndi.url}}#
+    username: #{{connectOneApi.db2Jndi.username}}#
+    password: #{{connectOneApi.db2Jndi.password}}#
+    maxTotal: #{{connectOneApi.db2Jndi.maxTotal}}#
+  docSqlJndi:
+    url: #{{connectOneApi.docSqlJndi.url}}#
+    username: #{{connectOneApi.docSqlJndi.username}}#
+    password: #{{connectOneApi.docSqlJndi.password}}#
+    maxTotal: #{{connectOneApi.docSqlJndi.maxTotal}}#
+ping:
+  url: #{{ping.url}}#
+login:
+  url: #{{login.url}}#
+  default-host: #{{login.default-host}}#
+  password: #{{login.password}}#
+saml:
+  password: #{{saml.password}}#

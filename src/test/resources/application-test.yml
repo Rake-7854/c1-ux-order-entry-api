@@ -1,0 +1,23 @@
+spring:
+    autoconfigure:
+        exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration,org.springframework.boot.autoconfigure.security.SecurityFilterAutoConfiguration,org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoConfiguration,org.springframework.boot.autoconfigure.security.oauth2.OAuth2AutoConfiguration
+    datasource:
+        url: jdbc:h2:mem:test
+    jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.H2Dialect
+    security:
+        user:
+            name: unitTest
+            password: s0meth!ng_hard-toGue5s
+pocOrderEntry:
+  claims:
+    accountClaimUri: organization
+  cors:
+    allowed-origins: "http://localhost:4200"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "Authorization,Link,X-Total-Count,X-UUID"
+    allow-credentials: true
+    max-age: 1800

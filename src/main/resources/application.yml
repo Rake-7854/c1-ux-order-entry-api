@@ -1,0 +1,200 @@
+#--------------------------------------------------------------------------------------------
+#
+# Root configuration properties
+#
+# Properties that are the same for every environment, go in this file.
+#  Example: connectOneApi.db2Jndi.driverClassName
+#
+# Properties that are different for every environment, go in this file, the 
+# application-LOCAL.yml, and the application-TEMPLATE.yml.  The value for the property 
+# in this file should be empty.  The value for the property in application-LOCAL.yml should
+# be filled, and the value in application-TEMPLATE.yml should be a token.  The tokens in
+# application-TEMPLATE.yml will be replaced with real values by the release pipeline.
+#   Example: server.ssl.key-alias.
+#
+# Properties that are needed only for some environments, and not all enviroments, do not go
+# in this file.  They are added to the release pipeline, instead.
+#   Example: In Dev: spring.security.static-headers.Origin-Agent-Cluster 
+#
+#--------------------------------------------------------------------------------------------
+server:
+  address: 0.0.0.0
+  port: 8083
+  servlet:
+    context-path: ""
+    session:
+      cookie:
+        same-site: none
+        secure: true
+      timeout: 30m
+  ssl:
+    key-store-type: PKCS12
+    key-store: ## keystore name
+    key-store-password: ## keystore passwod
+    key-alias: ## key alias
+    enabled: true
+  tomcat:
+    additional-tld-skip-patterns: "*.jar"
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: "ALWAYS"
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: "/manage"
+logging:
+  config: "classpath:logback-spring.xml"
+  file:
+    path: ./logs
+  level:
+    root: INFO # used to override root logger in logback-spring.xml
+auth0:
+  audience: ## audience
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  cache:
+    jcache:
+      config: classpath:ehcacheOEUX.xml
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          pingfed:
+            signing:
+              credentials:
+                0:
+                  private-key-location: classpath:certs/private_key.pem
+                  certificate-location: classpath:certs/certificate.cer
+            assertingparty:
+              entity-id: ## entity-id
+              verification:
+                credentials:
+                  - certificate-location: classpath:certs/storefront_test.crt
+              singlesignon:
+                url: ## url
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB                    
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+springdoc:
+  packagesToScan: com.rrd.c1ux.api.controllers
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    csrf:
+      enabled: true
+connectOneApi:
+  claims:
+    accountClaimUri: http://wso2.org/claims/organization
+    cpSessionId: cpSessionId  
+    firstName: firstName
+    lastName: lastName
+    email: email  
+    account: account
+    entryPoint: POUT_ENTRY_PT
+  cors:
+    allowed-origins: ## allowed origins
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "*"
+    allow-credentials: false
+    max-age: 1800
+  db2Jndi:
+    name: jdbc/XSDT
+    factory: org.apache.tomcat.jdbc.pool.DataSourceFactory
+    driverClassName: com.ibm.db2.jcc.DB2Driver
+    url: ## url
+    username: ## username
+    password: ## passwword
+    initialSize: 5
+    maxIdle: 10
+    maxTotal: # max number of connections in pool
+    maxWait: 10800
+    minEvictableIdleTimeMillis: 72000
+    minIdle: 5
+  docSqlJndi:
+    name: jdbc/DOC-SQL
+    factory: org.apache.tomcat.jdbc.pool.DataSourceFactory
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: ## url
+    username: ## username
+    password: ## password
+    maxIdle: 4
+    maxTotal: # max number of connections in pool
+    maxWait: 10800
+    minEvictableIdleTimeMillis: 72000
+    minIdle: 1
+ping:
+  url: ## ping.url
+
+#Style properties to include C1UX style files
+apstandardstyle:
+  baseurl: /style/
+
+#Login properties to process a SAML request into the system for login
+login:
+  url: ## login.url
+  default-host: ## login.default-host
+  use-verbose-error-messages: false
+  http-only: true
+  secure-cookie: false
+  cookie-path: /
+  token-renewuntil: 43200
+  token-notbefore-tolerance: 30
+  cookie-domain: 
+  password: ## login.password
+  token-name: opentoken
+  use-cookie: true
+  cipher-suite: "0"
+  use-sunjce: false
+  session-cookie: false
+  token-lifetime: 300
+  obfuscate-password: true
+  track-authntime: true
+saml:
+  use-verbose-error-messages: false
+  http-only: false
+  cookie-path: /
+  token-renewuntil: 43200
+  token-notbefore-tolerance: 15
+  password: ## saml.password
+  token-name: cptoken
+  use-cookie: false
+  cipher-suite: "0"
+  use-sunjce: false
+  token-lifetime: 300
+  obfuscate-password: false
+  track-authntime: true
+angular:
+  resource:
+    location: file:/apps/c1ux-ui/
+uri:
+  customerfiles:
+    matcher: /customerfiles/**
+    path: file:/xs2files/CustomerFiles/
+  stylesheets:
+    matcher: /style/**
+    path: file:/xs2files/stylesheets/
+  javascript:
+    files: 
+      matcher: /js/**
+      path: file:///xs2files/javascript/
+  custdocsjs:
+    root: /xs2files/javascript/
+translation:
+  files:
+    root: /xs2files/translation/
+  basename:
+    root: file:/xs2files/translation/
+paymetric:
+  wsdl: /primesys/xipaysoap/wsdl/XiPayWSConnector.XiPay.svc.wsdl

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+	        %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
+	      </pattern>
+		</encoder>
+	</appender>
+
+    <!-- When the LOCAL spring profile for spring is enabled -->
+	<springProfile name="LOCAL">
+						
+		<root level="INFO">
+			<appender-ref ref="STDOUT" />
+		</root>
+
+	</springProfile>
+
+	<!-- when any spring profiles other than LOCAL are enabled -->
+	<springProfile name="!LOCAL">
+		
+		<variable name="LOG_PATTERN" value="%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n" />
+		<variable name="MAX_HISTORY" value="30" />
+		<variable name="TOTAL_SIZE_CAP" value="3GB" />
+		
+		<appender name="MAIN-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH}/c1ux-api.log</file>
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</encoder>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH}/c1ux-api.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<maxHistory>${MAX_HISTORY}</maxHistory>
+				<totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+			</rollingPolicy>
+		</appender>
+	
+		<root level="INFO">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="MAIN-LOG" />
+		</root>	
+	
+		<appender name="AUTH-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH}/c1ux-api-auth.log</file>
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</encoder>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH}/c1ux-api-auth.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<maxHistory>${MAX_HISTORY}</maxHistory>
+				<totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+			</rollingPolicy>
+		</appender>
+	
+		<logger name="authFailure" level="INFO">
+			<appender-ref ref="AUTH-LOG" />
+		</logger>
+	
+		<appender name="BAD-REQUEST-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH}/c1ux-api-bad-request.log</file>
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</encoder>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH}/c1ux-api-bad-request.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<maxHistory>${MAX_HISTORY}</maxHistory>
+				<totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+			</rollingPolicy>
+		</appender>
+	
+		<logger name="badRequest" level="INFO">
+			<appender-ref ref="BAD-REQUEST-LOG" />
+		</logger>
+	
+		<appender name="UNHANDLED-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_PATH}/c1ux-api-unhandled.log</file>
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</encoder>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_PATH}/c1ux-api-unhandled.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<maxHistory>${MAX_HISTORY}</maxHistory>
+				<totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+			</rollingPolicy>
+		</appender>
+	
+		<logger name="unhandledException" level="INFO">
+			<appender-ref ref="UNHANDLED-LOG" />
+		</logger>
+	</springProfile>
+	
+</Configuration>

@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  c1uxorderentry:
+    image: c1ux-api:1.0.0-SNAPSHOT
+    environment:
+      - SERVER_PORT=8443
+      - SERVER_CONTEXT-PATH=/
+      - SERVER_SERVLET_CONTEXT-PATH=/
+      - LOADER_PATH=/usr/share/cp-properties/
+      - CLASSPATH=/usr/share/cp-properties:/usr/share/cp-translation
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx1048m -Dtt.arch.env.var=X4 -DXS.SERVER.TOKEN=DEV -DXS.SERVER.ID=1 -DXS.APP.LOCALE=en_US -Djxl.nogc=true -Dfile.encoding=UTF-8 -DCP_ENV=DEV -DENV_CODE=DEV -Dcom.sun.tools.javac.main.largebranch=true -Dtt.ParmCheckClass=com.wallace.atwinxs.framework.util.AtWinXSParmChecker -Dtt.PortalCookieClass=com.rrd.custompoint.framework.component.AuthServicesProcessorImpl -Dtt.SessionAuditClass=com.wallace.atwinxs.admin.dao.LoginAuditDAO -Dtt.SiteClass=com.wallace.atwinxs.framework.dao.LoginProcessDAO -Dtt.UserClass=com.wallace.atwinxs.framework.dao.LoginProcessDAO -Dorg.apache.commons.collections.enableUnsafeSerialization=true -DSERVER_LOG_ROOT=/usr/share/xs2files/Logfiles -Dmqconnector=/usr/share/cp-runtimes/mq -Ddb2pwd_path=/usr/share/cp-runtimes/conf/db2_pwd.txt -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y
+    ports:
+      - 8443:8443
+      - 5005:5005
+    volumes:
+      - /mnt/c/xs2files:/usr/share/xs2files
+      - /mnt/c/git/custompoint/Properties:/usr/share/cp-properties
+      - /mnt/c/git/custompoint/Translation:/usr/share/cp-translation
+      - /mnt/c/git/custompoint/Servers/Runtimes:/usr/share/cp-runtimes

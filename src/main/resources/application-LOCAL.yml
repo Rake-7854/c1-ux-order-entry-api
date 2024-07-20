@@ -1,0 +1,70 @@
+#--------------------------------------------------------------------------------------------
+#
+# Local configuration properties
+#
+# Properties that require a value unique to the local environment go here.
+#  Examples: server.ssl.key-alias, management.endpoints.enabled-by-default 
+#
+#--------------------------------------------------------------------------------------------
+server:
+  port: 8080
+  ssl:
+    key-store: classpath:certs/keystore.p12
+    key-store-password: changeit
+    key-alias: saml2cert
+management:
+  endpoints:
+    enabled-by-default: true
+auth0:
+  audience: c1ux.login.local.rrd
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          pingfed:
+            assertingparty:
+              entity-id: c1ux.login.local.rrd
+              singlesignon:
+                url: https://localhost/xs2
+springdoc:
+  packagesToScan: com.rrd.c1ux.api.controllers, com.rrd.c1ux.api.models
+connectOneApi:
+  cors:
+    allowed-origins: https://stcmfg-mwe-dev1.na.ad.rrd.com:9443,https://dev.storefront.connectone.rrd.com,http://dev.storefront.connectone.rrd.com,http://localhost:4200,https://samltest.sso.rrd.com,https://localhost,https://localhost/xs2
+  db2Jndi:
+    url: jdbc:db2://rrlnx-cp-dbd01.rrd.com:50000/XSDV
+    username: winxsusr
+    password: winxsusr
+    maxTotal: 25
+  docSqlJndi:
+    url: jdbc:sqlserver://cwdaxd-sqlvm019.na.ad.rrd.com:1433;databaseName=XSListRequest;encrypt=true;trustServerCertificate=true
+    username: XSCPUSR01
+    password: cpxs8531
+    maxTotal: 25
+ping:
+  url: https://samltest.sso.rrd.com/idp/startSSO.ping?PartnerSpId=#####
+login:
+  url: https://samltest.sso.rrd.com/idp/startSSO.ping?PartnerSpId=https%3A%2F%2Flocalhost%3A8080%2Fsaml2%2Fservice-provider-metadata%2Fpingfed&ACSIdx=1
+  default-host: https://localhost:8080
+  password: axoPDAwYvJ8QLXeUe/6dMg==
+saml:
+  password: czNjdXIzQ1A=
+angular:
+  resource:
+    location: file:///C:/git/c1ux-ua/c1ux-ua/dist/c1ux-ua/
+uri:
+  customerfiles:
+    path: file:///C:/xs2files/CustomerFiles/
+  stylesheets:
+    path: file:///C:/xs2files/stylesheets/
+  javascript:
+    files:
+      path: file:///C:/xs2files/javascript/
+  custdocsjs:
+    root: C:\\xs2files\\javascript\\
+translation:
+  files:
+    root: C:\\xs2files\\translation\\
+  basename:
+    root: file:///C:/xs2files/translation/

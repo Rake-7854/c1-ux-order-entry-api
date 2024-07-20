@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- Format pattern to match logging output by maven for consistent appearance -->
+			<pattern>
+	        	[%boldBlue(%level)] %logger{36}.%M - %msg%n
+	      	</pattern>
+		</encoder>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+    <!-- suppress noisey loggers while running tests -->
+    <logger name="unhandledException" level="OFF"/>
+    <logger name="authFailure" level="OFF"/>
+    <logger name="badRequest" level="OFF"/>
+    <logger name="com.wallace.atwinxs.framework.util.PropertyUtil" level="OFF"/>
+    
+    <logger name="org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper" level="WARN"/>
+    <logger name="org.springframework.test.context.support.AbstractContextLoader" level="WARN"/>
+    <logger name="org.springframework.test.context.support.AnnotationConfigContextLoaderUtils" level="WARN"/>
+    <logger name="org.springframework.test.context.support.DefaultTestContextBootstrapper" level="WARN"/>
+    <logger name="org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration" level="WARN"/>
+
+</Configuration>
