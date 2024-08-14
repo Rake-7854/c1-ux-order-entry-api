@@ -25,6 +25,7 @@ public class ApiApplication {
     //CAP-TEST
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
+		System.err.println("Hiii DEMO 1st Committ...");
 	}
 
 }
